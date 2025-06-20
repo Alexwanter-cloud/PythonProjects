@@ -4,30 +4,31 @@ URL = 'https://api.pokemonbattle.ru/v2'
 token = '9ff1c811f5a9769c14ca0a6c815032a9'
 header = {'content-Type' : 'application/json', 'trainer_token':token}
 
-body_registration = {
-    "trainer_token": token,
-    "email": "wanteruga01@yandex.ru",
-    "password": "Z14ag61c"
-}
-
-body_confirmation = {
-    "trainer_token": token
-}
-
 body_create = {
     "name": "Бульбазавр",
     "photo_id": 12
 }
 
-# response = requests.post(url = f'{URL}/trainers/reg', headers =  header, json = body_registration)
-#print(response.text)
-
-#response_confirmation = requests.post(url = f'{URL}/trainers/confirm_email', headers =  header, json = body_confirmation)
-#print(response_confirmation.text)
-
 response_create = requests.post(url = f'{URL}/pokemons', headers =  header, json = body_create)
-print(response_create.text)
-print(response_create.status_code)
+print("\033[92mBody response:\033[0m", response_create.text)
+print("\033[92mКод ответа сервера:\033[0m", response_create.status_code)
+response_data = response_create.json()
+pokemon_id = response_data['id']
 
-message = response_create.json()['message']
-print(message)
+body_rename = {
+    "pokemon_id": pokemon_id,
+    "name": "New Name",
+    "photo_id": 2
+}
+
+response_rename = requests.put(url = f'{URL}/pokemons', headers =  header, json = body_rename)
+print("\033[92mBody response:\033[0m", response_rename.text)
+print("\033[92mКод ответа сервера:\033[0m", response_rename.status_code)
+
+body_add = {
+    "pokemon_id": pokemon_id
+}
+
+response_addpokeball = requests.post(url = f'{URL}/trainers/add_pokeball', headers =  header, json = body_add)
+print("\033[92mBody response:\033[0m", response_addpokeball.text)
+print("\033[92mКод ответа сервера:\033[0m", response_addpokeball.status_code)
