@@ -1,11 +1,11 @@
 import requests
 
 URL = 'https://api.pokemonbattle.ru/v2'
-token = '9ff1c811f5a9769c14ca0a6c815032a9'
+token = 'ТОКЕН_ТРЕНЕРА' #указать токен тренера
 header = {'content-Type' : 'application/json', 'trainer_token':token}
 
 body_create = {
-    "name": "Бульбазавр",
+    "name": "{{$randomFirstName}}",
     "photo_id": 12
 }
 
